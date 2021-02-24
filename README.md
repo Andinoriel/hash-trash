@@ -18,6 +18,13 @@ cmake --build ./build --config <Debug|Release>
 ```
 4. You've done! The builded binary file(s) available in the build directory.
 
+### Python
+
+1. Cd to the "python" dir;
+2. Then run:
+```
+python main.py
+```
 
 ## License
 
