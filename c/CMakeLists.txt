@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 enable_language(C)
-set(CMAKE_C_STANDARD 98)
+set(CMAKE_C_STANDARD 99)
 
 project(hash)
 add_executable(hash)  
