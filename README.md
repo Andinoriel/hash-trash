@@ -1,7 +1,7 @@
 # hash-trash
 Implementation of simple 8-bit hashing in different languages using the Gill function
 
-## Build 
+## Usage 
 
 First of all you must clone this project and then cd to the project folder.
 
@@ -26,6 +26,28 @@ cmake --build ./build --config <Debug|Release>
 python main.py
 ```
 
+### Dart
+
+#### Run
+
+```
+$ cd dart
+$ dart run
+```
+
+#### Build
+
+```
+$ cd dart
+$ dart compile exe bin/dart.dart
+```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Contributors
+
+* [andinoriel](https://github.com/Andinoriel) - C
+* [HanGerrel](https://github.com/HanGerrel) - Python
+* [IceArrow256](https://github.com/IceArrow256) - Dart
