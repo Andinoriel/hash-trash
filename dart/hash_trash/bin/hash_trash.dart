@@ -4,6 +4,7 @@ import 'package:ansicolor/ansicolor.dart';
 import 'package:hash_trash/hash_trash.dart';
 
 void main(List<String> arguments) {
+  ansiColorDisabled = false;
   var X = getRandomX(length: 10);
   var Y = <int>[];
   for (var i = 0; i < X.length; i++) {
