@@ -1,16 +1,54 @@
+#include <bitset>
 #include <cinttypes>
 #include <cmath>
 #include <iomanip>
 #include <iostream>
-#include <stdint.h>
+#include <random>
+#include <string>
+#include <tuple>
 #include <vector>
 
-#include "stuff.hpp"
-
 static constexpr int ARR_LEN = 10;
-static constexpr int HASH_BITS = 256; // 16384
+static constexpr int HASH_BITS = 256;   // 16384
 static constexpr int BASE_SIMPLE = 251; // 16381
 static constexpr int UP_POW = 20;
+
+// get random uint64_t in [min, max)
+uint64_t rand_in_range(uint64_t min, uint64_t max) {
+  std::random_device rd;
+  std::mt19937_64 gen(rd());
+  std::uniform_int_distribution<uint64_t> ds(min, max);
+  return ds(gen);
+}
+
+// print hihglight diff between two str
+std::string highlight_diff(const std::string &ref, const std::string &s) {
+  std::string res;
+  auto it_ref = ref.cbegin();
+  auto it = s.cbegin();
+
+  auto GREEN = "\033[31m";
+  auto RESET = "\033[0m";
+
+  while (it_ref != ref.cend() && it != s.cend()) {
+    auto p = std::mismatch(it_ref, ref.cend(), it, s.end());
+    res.insert(res.end(), it_ref, p.first);
+    std::tie(it_ref, it) = p;
+    p = std::mismatch(it_ref, ref.cend(), it, s.end(), std::not_equal_to<>{});
+    if (p.first != it_ref) {
+      res += GREEN;
+      res.insert(res.end(), it_ref, p.first);
+      res += RESET;
+    }
+    std::tie(it_ref, it) = p;
+  }
+  if (it != s.end()) {
+    res += GREEN;
+    res.insert(res.end(), it, s.end());
+    res += RESET;
+  }
+  return res;
+}
 
 // randomization
 uint64_t *get_random_x(uint64_t len) {
@@ -54,11 +92,11 @@ int main() {
   std::vector<uint64_t> hash_Y;
 
   for (int i = 0; i < ARR_LEN; ++i) {
-    bins_X.push_back(bin(*(X + i), UP_POW));
+    bins_X.push_back(std::bitset<UP_POW>(*(X + i)).to_string());
     hash_X.push_back(get_hash(*(X + i)));
   }
   for (int i = 0; i < ARR_LEN; ++i) {
-    bins_Y.push_back(bin(*(Y + i), UP_POW));
+    bins_Y.push_back(std::bitset<UP_POW>(*(Y + i)).to_string());
     hash_Y.push_back(get_hash(*(Y + i)));
   }
 
@@ -66,7 +104,8 @@ int main() {
 
   std::cout << "X:\n";
   for (int i = 0; i < ARR_LEN; ++i) {
-    std::cout << std::setw(20) << *(X + i) << "\t\t" << highlight_diff(bins_X.at(i), bins_Y.at(i))
+    std::cout << std::setw(20) << *(X + i) << "\t\t"
+              << highlight_diff(bins_X.at(i), bins_Y.at(i))
               << "\t\tH(x): " << std::setw(10) << hash_X.at(i) << "\n";
   }
 
