@@ -7,10 +7,10 @@
 
 #include "stuff.hpp"
 
-static const int ARR_LEN = 10;
-static const int HASH_BITS = 256; // 16384
-static const int BASE_SIMPLE = 251; // 16381
-static const int UP_POW = 20;
+static constexpr int ARR_LEN = 10;
+static constexpr int HASH_BITS = 256; // 16384
+static constexpr int BASE_SIMPLE = 251; // 16381
+static constexpr int UP_POW = 20;
 
 // randomization
 uint64_t *get_random_x(uint64_t len) {

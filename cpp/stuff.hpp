@@ -76,22 +76,25 @@ static inline std::string highlight_diff(const std::string &ref,
   auto it_ref = ref.cbegin();
   auto it = s.cbegin();
 
+  auto GREEN = "\033[31m";
+  auto RESET = "\033[0m";
+
   while (it_ref != ref.cend() && it != s.cend()) {
     auto p = std::mismatch(it_ref, ref.cend(), it, s.end());
     res.insert(res.end(), it_ref, p.first);
     std::tie(it_ref, it) = p;
     p = std::mismatch(it_ref, ref.cend(), it, s.end(), std::not_equal_to<>{});
     if (p.first != it_ref) {
-      res += "\033[31m";
+      res += GREEN;
       res.insert(res.end(), it_ref, p.first);
-      res += "\033[0m";
+      res += RESET;
     }
     std::tie(it_ref, it) = p;
   }
   if (it != s.end()) {
-    res += "\033[31m";
+    res += GREEN;
     res.insert(res.end(), it, s.end());
-    res += "\033[0m";
+    res += RESET;
   }
   return res;
 }

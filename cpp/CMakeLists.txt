@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 enable_language(CXX)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 project(hash)
 add_executable(hash)  
