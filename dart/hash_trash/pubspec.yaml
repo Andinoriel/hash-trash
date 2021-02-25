@@ -9,6 +9,7 @@ environment:
 dependencies:
   ansicolor: ^1.1.1
   meta: ^1.2.4
+  scidart: ^0.0.1-dev.1
 #  path: ^1.7.0
 
 dev_dependencies:

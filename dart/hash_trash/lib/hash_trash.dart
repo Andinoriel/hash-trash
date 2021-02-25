@@ -33,3 +33,32 @@ String highlightDiff({@required String left, @required String right}) {
   }
   return result;
 }
+
+double correlationCoefficient({List<int> x, List<int> y}) {
+  var length = min(x.length, y.length);
+  var avgX = 0.0;
+  var avgY = 0.0;
+  var avgX2 = 0.0;
+  var avgY2 = 0.0;
+  for (var i = 0; i < length; i++) {
+    avgX += x[i];
+    avgY += y[i];
+    avgX2 += x[i] * x[i];
+    avgY2 += y[i] * y[i];
+  }
+  avgX /= length;
+  avgY /= length;
+  avgX2 /= length;
+  avgY2 /= length;
+  var deltaX2 = avgX2 - avgX * avgX;
+  var deltaY2 = avgY2 - avgY * avgY;
+  var deltaX = sqrt(deltaX2);
+  var deltaY = sqrt(deltaY2);
+  var numerator = 0.0;
+  for (var i = 0; i < length; i++) {
+    numerator += (x[i] - avgX) * (y[i] - avgY);
+  }
+  var denominator = length * deltaX * deltaY;
+  var corrCoef = numerator / denominator;
+  return corrCoef;
+}
