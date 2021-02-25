@@ -31,7 +31,7 @@ python main.py
 #### Run
 
 ```
-$ cd dart
+$ cd dart/hash_trash
 $ dart run
 ```
 
@@ -39,7 +39,8 @@ $ dart run
 
 ```
 $ cd dart
-$ dart compile exe bin/dart.dart
+$ dart compile exe bin/hash_trash.dart
+$ bin/hash_trash.exe
 ```
 
 ## License
