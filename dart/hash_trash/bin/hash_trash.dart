@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:ansicolor/ansicolor.dart';
 import 'package:hash_trash/hash_trash.dart';
 
