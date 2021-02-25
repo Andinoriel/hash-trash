@@ -1,11 +1,11 @@
 # hash-trash
-Implementation of simple 8-bit hashing in different languages using the Gill function
+Implementation of simple 8-bit hashing in different languages using the Gill function.
 
 ## Usage 
 
 First of all you must clone this project and then cd to the project folder.
 
-### C
+### C++
 
 1. Cd to the "cpp" dir;
 2. Configure the project using CMake:
@@ -38,7 +38,7 @@ $ dart run
 #### Build
 
 ```
-$ cd dart
+$ cd dart/hash_trash
 $ dart compile exe bin/hash_trash.dart
 $ bin/hash_trash.exe
 ```
@@ -49,6 +49,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contributors
 
-* [andinoriel](https://github.com/Andinoriel) - C
+* [andinoriel](https://github.com/Andinoriel) - C++
 * [HanGerrel](https://github.com/HanGerrel) - Python
 * [IceArrow256](https://github.com/IceArrow256) - Dart
