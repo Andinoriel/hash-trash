@@ -1,5 +1,7 @@
 import 'package:ansicolor/ansicolor.dart';
 import 'package:hash_trash/hash_trash.dart';
+import 'package:scidart/numdart.dart';
+import 'package:scidart/scidart.dart';
 
 void main(List<String> arguments) {
   ansiColorDisabled = false;
@@ -30,4 +32,6 @@ void main(List<String> arguments) {
     print(
         '${Y[i].toString().padLeft(20, ' ')}\t\t${highlightDiff(left: binsY[i], right: binsX[i])}\t\tH(x)${hashY[i].toString().padLeft(20, ' ')}');
   }
+  print(
+      'Correlation coefficient: ${correlationCoefficient(x: hashX, y: hashY).toStringAsFixed(2)}');
 }
