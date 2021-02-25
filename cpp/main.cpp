@@ -5,7 +5,6 @@
 #include <iostream>
 #include <random>
 #include <string>
-#include <tuple>
 #include <vector>
 
 static constexpr int ARR_LEN = 10;
@@ -22,32 +21,14 @@ uint64_t rand_in_range(uint64_t min, uint64_t max) {
 }
 
 // print hihglight diff between two str
-std::string highlight_diff(const std::string &ref, const std::string &s) {
-  std::string res;
-  auto it_ref = ref.cbegin();
-  auto it = s.cbegin();
-
-  auto GREEN = "\033[31m";
-  auto RESET = "\033[0m";
-
-  while (it_ref != ref.cend() && it != s.cend()) {
-    auto p = std::mismatch(it_ref, ref.cend(), it, s.end());
-    res.insert(res.end(), it_ref, p.first);
-    std::tie(it_ref, it) = p;
-    p = std::mismatch(it_ref, ref.cend(), it, s.end(), std::not_equal_to<>{});
-    if (p.first != it_ref) {
-      res += GREEN;
-      res.insert(res.end(), it_ref, p.first);
-      res += RESET;
-    }
-    std::tie(it_ref, it) = p;
+std::string highlight_diff(std::string lhs, std::string rhs) {
+  std::string result;
+  for (size_t i = 0; i < std::min(lhs.length(), rhs.length()); ++i) {
+    result.append(lhs[i] == rhs[i] ? std::string("") + lhs[i]
+                                   : std::string("\033[31m") + lhs[i] +
+                                         std::string("\033[0m"));
   }
-  if (it != s.end()) {
-    res += GREEN;
-    res.insert(res.end(), it, s.end());
-    res += RESET;
-  }
-  return res;
+  return result;
 }
 
 // randomization
@@ -77,7 +58,7 @@ int main() {
   uint64_t *Y = new uint64_t[ARR_LEN];
 
   std::copy(X, X + ARR_LEN, Y);
-  for (int i = 0; i < ARR_LEN; ++i) {
+  for (size_t i = 0; i < ARR_LEN; ++i) {
     // changing bits of nums
     // *(Y + i) = *(X + i) ^ (uint64_t)1 << rand_in_range(1, ARR_LEN);
     *(Y + i) = *(X + i) ^ (uint64_t)1 << (uint64_t)i;
@@ -91,11 +72,11 @@ int main() {
   std::vector<uint64_t> hash_X;
   std::vector<uint64_t> hash_Y;
 
-  for (int i = 0; i < ARR_LEN; ++i) {
+  for (size_t i = 0; i < ARR_LEN; ++i) {
     bins_X.push_back(std::bitset<UP_POW>(*(X + i)).to_string());
     hash_X.push_back(get_hash(*(X + i)));
   }
-  for (int i = 0; i < ARR_LEN; ++i) {
+  for (size_t i = 0; i < ARR_LEN; ++i) {
     bins_Y.push_back(std::bitset<UP_POW>(*(Y + i)).to_string());
     hash_Y.push_back(get_hash(*(Y + i)));
   }
@@ -103,7 +84,7 @@ int main() {
   // ========================================================================
 
   std::cout << "X:\n";
-  for (int i = 0; i < ARR_LEN; ++i) {
+  for (size_t i = 0; i < ARR_LEN; ++i) {
     std::cout << std::setw(20) << *(X + i) << "\t\t"
               << highlight_diff(bins_X.at(i), bins_Y.at(i))
               << "\t\tH(x): " << std::setw(10) << hash_X.at(i) << "\n";
@@ -112,7 +93,7 @@ int main() {
   // ========================================================================
 
   std::cout << "Y:\n";
-  for (int i = 0; i < ARR_LEN; ++i) {
+  for (size_t i = 0; i < ARR_LEN; ++i) {
     std::cout << std::setw(20) << *(Y + i) << "\t\t"
               << highlight_diff(bins_Y.at(i), bins_X.at(i))
               << "\t\tH(x): " << std::setw(10) << hash_Y.at(i) << "\t"
