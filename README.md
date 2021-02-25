@@ -7,7 +7,7 @@ First of all you must clone this project and then cd to the project folder.
 
 ### C
 
-1. Cd to the "c" dir;
+1. Cd to the "cpp" dir;
 2. Configure the project using CMake:
 ```
 cmake -B ./build -G <preferred generator>
