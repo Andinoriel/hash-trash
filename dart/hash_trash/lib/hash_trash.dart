@@ -79,16 +79,20 @@ String getOutputLine(
     @required String binRight,
     @required Map<int, int> collisions,
     @required int hashLeft,
-    @required int hashRight}) {
+    @required int hashRight,
+    bool hashCheck = false}) {
   var pen = AnsiPen()..red();
   var result = '${left.toString().padLeft(20, ' ')}\t\t';
   result += '${highlightDiff(left: binLeft, right: binRight)}\t\t';
+
   result += 'H(x)' +
       (collisions.keys.contains(hashLeft)
           ? pen(hashLeft.toString().padLeft(20, ' '))
           : hashLeft.toString().padLeft(20, ' ')) +
       '\t\t';
-  result += 'H(X) = H(Y) = ${hashLeft == hashRight}';
+  if (hashCheck) {
+    result += 'H(X) = H(Y) = ${hashLeft == hashRight}';
+  }
   return result;
 }
 
