@@ -20,16 +20,16 @@ void main(List<String> arguments) {
     binsY.add(y.toRadixString(2).padLeft(20, '0'));
     hashY.add(getHash(value: y));
   }
-  var collisionsX = countCollisions(hashX);
-  var collisionsY = countCollisions(hashY);
-  var collisionBetweenXY = countCollisionBetween(hashX, hashY);
+  var collisionsHashX = countCollisions(hashX);
+  var collisionsHashY = countCollisions(hashY);
+  var collisionBetweenHashXY = countCollisionBetween(hashX, hashY);
   print('X:');
   for (var i = 0; i < hashX.length; i++) {
     print(getOutputLine(
         left: X[i],
         binLeft: binsX[i],
         binRight: binsY[i],
-        collisions: collisionsX,
+        collisions: collisionsHashX,
         hashLeft: hashX[i],
         hashRight: hashY[i]));
   }
@@ -39,9 +39,10 @@ void main(List<String> arguments) {
         left: Y[i],
         binLeft: binsY[i],
         binRight: binsX[i],
-        collisions: collisionsY,
+        collisions: collisionsHashY,
         hashLeft: hashY[i],
-        hashRight: hashX[i]));
+        hashRight: hashX[i],
+        hashCheck: true));
   }
   print('Correlation coefficient (X, HASH X): ' +
       correlationCoefficient(x: X, y: hashX).toStringAsFixed(2));
@@ -51,8 +52,8 @@ void main(List<String> arguments) {
       correlationCoefficient(x: hashX, y: hashY).toStringAsFixed(2));
   print('Correlation coefficient (X, Y): ' +
       correlationCoefficient(x: X, y: Y).toStringAsFixed(2));
-  print('Collision in X. Collision pairs: ${collisionsX.length}');
-  print('Collision in Y. Collision pairs: ${collisionsY.length}');
-  print('Collision between X and Y. Collision pairs: ' +
-      collisionBetweenXY.length.toString());
+  print('Collision in H(X). Collision pairs: ${collisionsHashX.length}');
+  print('Collision in H(Y). Collision pairs: ${collisionsHashY.length}');
+  print('Collision between H(X) and H(Y). Collision pairs: ' +
+      collisionBetweenHashXY.length.toString());
 }
