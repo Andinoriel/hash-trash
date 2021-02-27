@@ -3,21 +3,21 @@ use rand::Rng;
 use std::cmp::min;
 
 static ARR_LEN: usize = 10;
-static HASH_BITS: u64 = 256;
-static BASE_SIMPLE: u64 = 251;
-static UP_POW: u32 = 32;
+static HASH_BITS: u64 = 63; // max 63 until overflow
+static BASE_SIMPLE: u64 = 99991;
+static UP_POW: u32 = 63; // max 63 until overflow
 
-fn exp(x: u64, n: u64) -> u64 {
+fn exp_rec(x: u64, n: u64) -> u64 {
     match n {
         0 => 1,
         1 => x,
-        i if i % 2 == 0 => exp(x * x, n / 2),
-        _ => x * exp(x * x, (n - 1) / 2),
+        i if i % 2 == 0 => exp_rec(x * x, n / 2),
+        _ => x * exp_rec(x * x, (n - 1) / 2),
     }
 }
 
 fn get_hash(x: &u64) -> u64 {
-    exp(BASE_SIMPLE, *x) % HASH_BITS
+    exp_rec(BASE_SIMPLE, *x) % (exp_rec(2, HASH_BITS))
 }
 
 fn highlight_diff(lhs: &String, rhs: &String) -> String {
