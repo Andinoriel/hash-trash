@@ -1,5 +1,5 @@
 # hash-trash
-Implementation of simple 8-bit hashing in different languages using the Gill function.
+Implementation of simple hashing in different languages using the Gill function.
 
 ## Usage 
 
@@ -63,6 +63,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contributors
 
-* [andinoriel](https://github.com/Andinoriel) - C++
+* [andinoriel](https://github.com/Andinoriel) - C++/Rust
 * [HanGerrel](https://github.com/HanGerrel) - Python
 * [IceArrow256](https://github.com/IceArrow256) - Dart
