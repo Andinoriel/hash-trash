@@ -5,11 +5,11 @@
 #include <iomanip>
 #include <iostream>
 #include <random>
+#include <set>
 #include <string>
 #include <vector>
-#include <map>
 
-static constexpr size_t ARR_LEN = 20;
+static constexpr size_t ARR_LEN = 10;
 static constexpr size_t HASH_BITS = 256;
 static constexpr size_t BASE_SIMPLE = 251;
 static constexpr size_t UP_POW = 20;
@@ -74,6 +74,14 @@ double get_correlatio_coeff(std::vector<uint64_t> const &lhs,
   return numerator / denominator;
 }
 
+double get_percent_of_collision(std::vector<uint64_t> vec) {
+  std::set<uint64_t> set;
+  for (auto&& elem : vec) {
+    set.insert(elem);
+  }
+  return 1. - set.size() * 1. / vec.size();
+}
+
 int main() {
   // ========================================================================
 
@@ -126,9 +134,14 @@ int main() {
             << get_correlatio_coeff(Y, hash_Y) << "\n";
   std::cout << "Correlation coefficient (H(X), H(Y)):\t"
             << get_correlatio_coeff(hash_X, hash_Y) << "\n";
-  std::cout << "Correlation coefficient (X, Y):\t\t" << get_correlatio_coeff(X, Y)
-            << "\n";
-  
+  std::cout << "Correlation coefficient (X, Y):\t\t"
+            << get_correlatio_coeff(X, Y) << "\n";
+
+  // ========================================================================
+
+  // std::cout << "H(X)\\:\t" << get_percent_of_collision(hash_X) << "\n";
+  // std::cout << "H(Y)\\:\t" << get_percent_of_collision(hash_Y) << "\n";
+
   // ========================================================================
 
   return 0;
