@@ -6,13 +6,14 @@
 #include <iostream>
 #include <random>
 #include <set>
+#include <stdint.h>
 #include <string>
 #include <vector>
 
 static constexpr size_t ARR_LEN = 10;
 static constexpr size_t HASH_BITS = 256;
 static constexpr size_t BASE_SIMPLE = 251;
-static constexpr size_t UP_POW = 20;
+static constexpr size_t UP_POW = 63; // max 63 until overflow
 
 // get random uint64_t in [min, max)
 uint64_t rand_in_range(uint64_t min, uint64_t max) {
@@ -33,14 +34,22 @@ std::string highlight_diff(std::string const &lhs, std::string const &rhs) {
   return result;
 }
 
-// hash through exponential
-uint64_t get_hash(uint64_t x) {
-  uint64_t powered = 1;
-  for (uint64_t i = 0; i < x; ++i) {
-    powered *= BASE_SIMPLE;
+// exp uint64_t recursive
+uint64_t exp_rec(uint64_t x, uint64_t n) {
+  if (n == 0) {
+    return 1;
   }
-  return powered % HASH_BITS;
+  if (n == 1) {
+    return x;
+  }
+  if (!(n % 2)) {
+    return exp_rec(x * x, n / 2);
+  }
+  return x * exp_rec(x * x, (n - 1) / 2);
 }
+
+// hash through exponential
+uint64_t get_hash(uint64_t x) { return exp_rec(BASE_SIMPLE, x) % HASH_BITS; }
 
 double get_correlatio_coeff(std::vector<uint64_t> const &lhs,
                             std::vector<uint64_t> const &rhs) {
@@ -76,7 +85,7 @@ double get_correlatio_coeff(std::vector<uint64_t> const &lhs,
 
 double get_percent_of_collision(std::vector<uint64_t> vec) {
   std::set<uint64_t> set;
-  for (auto&& elem : vec) {
+  for (auto &&elem : vec) {
     set.insert(elem);
   }
   return 1. - set.size() * 1. / vec.size();
