@@ -43,6 +43,20 @@ $ dart compile exe bin/hash_trash.dart
 $ bin/hash_trash.exe
 ```
 
+### Rust
+
+1. Cd to the "rust/hash-trash" dir;
+2. To build:
+```
+    cargo build --release
+```
+3. To run:
+```
+    cargo run --release
+```
+
+> Keep in mind that due to Rust specificity, the application will not work in debug build
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
