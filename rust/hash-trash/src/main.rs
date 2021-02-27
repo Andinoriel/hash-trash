@@ -5,10 +5,19 @@ use std::cmp::min;
 static ARR_LEN: usize = 10;
 static HASH_BITS: u64 = 256;
 static BASE_SIMPLE: u64 = 251;
-static UP_POW: u32 = 32; // max 32
+static UP_POW: u32 = 32;
+
+fn exp(x: u64, n: u64) -> u64 {
+    match n {
+        0 => 1,
+        1 => x,
+        i if i % 2 == 0 => exp(x * x, n / 2),
+        _ => x * exp(x * x, (n - 1) / 2),
+    }
+}
 
 fn get_hash(x: &u64) -> u64 {
-    u64::pow(BASE_SIMPLE, *x as u32) % HASH_BITS
+    exp(BASE_SIMPLE, *x) % HASH_BITS
 }
 
 fn highlight_diff(lhs: &String, rhs: &String) -> String {
@@ -70,7 +79,7 @@ fn main() {
     let mut rng = rand::thread_rng();
     for i in 0..ARR_LEN {
         x.push(rng.gen_range(0..u64::pow(2, UP_POW)));
-        y.push(x[i] ^ 1 << i);
+        y.push(x[i] ^ 1 << rng.gen_range(0..UP_POW));
     }
 
     // ====================================================
