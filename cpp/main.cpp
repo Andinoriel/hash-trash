@@ -6,13 +6,12 @@
 #include <iostream>
 #include <random>
 #include <set>
-#include <stdint.h>
 #include <string>
 #include <vector>
 
 static constexpr size_t ARR_LEN = 10;
-static constexpr size_t HASH_BITS = 256;
-static constexpr size_t BASE_SIMPLE = 251;
+static constexpr size_t HASH_BITS = 63; // max 63 until overflow
+static constexpr size_t BASE_SIMPLE = 99991;
 static constexpr size_t UP_POW = 63; // max 63 until overflow
 
 // get random uint64_t in [min, max)
@@ -49,7 +48,9 @@ uint64_t exp_rec(uint64_t x, uint64_t n) {
 }
 
 // hash through exponential
-uint64_t get_hash(uint64_t x) { return exp_rec(BASE_SIMPLE, x) % HASH_BITS; }
+uint64_t get_hash(uint64_t x) {
+  return exp_rec(BASE_SIMPLE, x) % (exp_rec(2, HASH_BITS));
+}
 
 double get_correlatio_coeff(std::vector<uint64_t> const &lhs,
                             std::vector<uint64_t> const &rhs) {
