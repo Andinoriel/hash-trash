@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 
 def get_hash(x: int, n: int, a: int = 251) -> int:
@@ -7,11 +8,11 @@ def get_hash(x: int, n: int, a: int = 251) -> int:
 
 def get_random_x(length, up_pow):
     x = []
-    x_ = []
+    y = []
     for i in range(length):
         x.append(random.randrange(0, 2 ** up_pow))
-        x_.append(x[i] ^ 1 << random.randrange(0, up_pow))
-    return x, x_
+        y.append(x[i] ^ 1 << i)
+    return np.array(x), np.array(y)
 
 
 def correlation_coefficient(x: list, y: list) -> float:
@@ -86,10 +87,10 @@ def main():
     for i in range(len(arr_y)):
         print(f"{arr_y[i]:{up_pow}}\t\t{get_differences(arr_y_bin[i], arr_x_bin[i])}{arr_y_hash[i]:{up_pow}}")
 
-    print(f"\ncorrelation_coefficient between x and H(x): {correlation_coefficient(arr_x, arr_x_hash)}")
-    print(f"correlation_coefficient between y and H(y): {correlation_coefficient(arr_y, arr_y_hash)}")
-    print(f"correlation_coefficient between x and y: {correlation_coefficient(arr_x, arr_y)}")
-    print(f"correlation_coefficient between H(x) and H(y): {correlation_coefficient(arr_x_hash, arr_y_hash)}")
+    print(f"\ncorrelation_coefficient between x and H(x): {np.corrcoef(arr_x, arr_x_hash)}")
+    print(f"correlation_coefficient between y and H(y): {np.corrcoef(arr_y, arr_y_hash)}")
+    print(f"correlation_coefficient between x and y: {np.corrcoef(arr_x, arr_y)}")
+    print(f"correlation_coefficient between H(x) and H(y): {np.corrcoef(arr_x_hash, arr_y_hash)}")
 
     return 0
 
