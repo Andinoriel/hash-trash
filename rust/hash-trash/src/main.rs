@@ -3,9 +3,9 @@ use rand::Rng;
 use std::cmp::min;
 
 static ARR_LEN: usize = 10;
-static HASH_BITS: u64 = 63; // max 63 until overflow
-static BASE_SIMPLE: u64 = 99991;
-static UP_POW: u32 = 63; // max 63 until overflow
+static HASH_BITS: u64 = 8; // max 64 until overflow
+static BASE_SIMPLE: u64 = 251;
+static UP_POW: u32 = 20; // max 64 until overflow
 
 fn exp_rec(x: u64, n: u64) -> u64 {
     match n {
@@ -17,7 +17,7 @@ fn exp_rec(x: u64, n: u64) -> u64 {
 }
 
 fn get_hash(x: &u64) -> u64 {
-    exp_rec(BASE_SIMPLE, *x) % (exp_rec(2, HASH_BITS))
+    exp_rec(BASE_SIMPLE, *x) % (exp_rec(2, HASH_BITS) - 1)
 }
 
 fn highlight_diff(lhs: &String, rhs: &String) -> String {
@@ -78,7 +78,7 @@ fn main() {
 
     let mut rng = rand::thread_rng();
     for i in 0..ARR_LEN {
-        x.push(rng.gen_range(0..u64::pow(2, UP_POW)));
+        x.push(rng.gen_range(0..u64::pow(2, UP_POW) - 1));
         y.push(x[i] ^ 1 << rng.gen_range(0..UP_POW));
     }
 
@@ -103,17 +103,16 @@ fn main() {
     println!("X:");
     for i in 0..ARR_LEN {
         println!(
-            "\t{}\t\t{}\t\tH(x): {:10}",
+            "\t{:20}\t\t{}\t\tH(x): {:20}",
             x[i],
             highlight_diff(&bins_x[i], &bins_y[i]),
             hash_x[i]
         );
     }
-
     println!("Y:");
     for i in 0..ARR_LEN {
         println!(
-            "\t{}\t\t{}\t\tH(y): {:10}\tH(x) = H(y): {}",
+            "\t{:20}\t\t{}\t\tH(y): {:20}\tH(x) = H(y): {:10}",
             y[i],
             highlight_diff(&bins_y[i], &bins_x[i]),
             hash_y[i],
@@ -124,19 +123,19 @@ fn main() {
     // ====================================================
 
     println!(
-        "Correlation coefficient (X, H(X)):\t{}",
+        "Correlation coefficient (X, H(X)):\t{:10}",
         get_correlatio_coeff(&x, &hash_x)
     );
     println!(
-        "Correlation coefficient (Y, H(Y)):\t{}",
+        "Correlation coefficient (Y, H(Y)):\t{:10}",
         get_correlatio_coeff(&y, &hash_y)
     );
     println!(
-        "Correlation coefficient (H(X), H(Y)):\t{}",
+        "Correlation coefficient (H(X), H(Y)):\t{:10}",
         get_correlatio_coeff(&hash_x, &hash_y)
     );
     println!(
-        "Correlation coefficient (X, Y):\t{}",
+        "Correlation coefficient (X, Y):\t\t{:10}",
         get_correlatio_coeff(&x, &y)
     );
 }
