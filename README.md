@@ -55,8 +55,6 @@ $ bin/hash_trash.exe
     cargo run --release
 ```
 
-> Keep in mind that due to Rust specificity, the application will not work in debug build
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
