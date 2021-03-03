@@ -139,3 +139,23 @@ fn main() {
         get_correlatio_coeff(&x, &y)
     );
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn hash_check() {
+        use super::get_hash;
+
+        let init = vec![
+            445419, 101979, 793434, 560672, 72913, 878429, 879750, 491051, 636162, 439155,
+        ];
+        let comp = vec![55, 72, 57, 100, 242, 150, 206, 49, 236, 10]; // HASH_BITS = 8; BASE_SIMPLE = 251;
+        let mut ret = vec![];
+
+        for i in 0..10 {
+            ret.push(get_hash(&init[i]));
+        }
+
+        assert_eq!(&comp[..], &ret[..]);
+    }
+}
