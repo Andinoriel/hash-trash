@@ -57,6 +57,12 @@ $ bin/hash_trash.exe
 
 > Keep in mind that due to Rust specificity, the application will not work in debug build
 
+### Cs
+
+1. Cd to the "cs" dir;
+
+2. Just use csharp compiler to build this file. 
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -66,3 +72,4 @@ This project is licensed under the [MIT License](LICENSE).
 * [andinoriel](https://github.com/Andinoriel) - C++/Rust
 * [HanGerrel](https://github.com/HanGerrel) - Python
 * [IceArrow256](https://github.com/IceArrow256) - Dart
+* [Hikimory](https://github.com/Hikimory) - C#
