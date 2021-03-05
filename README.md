@@ -55,13 +55,10 @@ $ bin/hash_trash.exe
     cargo run --release
 ```
 
-> Keep in mind that due to Rust specificity, the application will not work in debug build
-
-### Cs
+### C#
 
 1. Cd to the "cs" dir;
-
-2. Just use csharp compiler to build this file. 
+2. Just use c# compiler to build this file. 
 
 ## License
 

@@ -6,6 +6,13 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[profile.dev]
+overflow-checks = false
+
+[profile.test]
+opt-level = 3
+overflow-checks = false
+
 [dependencies]
 rand="0.8.3"
 colored = "2"
