@@ -60,8 +60,15 @@ $ bin/hash_trash.exe
 ### Cs
 
 1. Cd to the "cs" dir;
-
-2. Just use csharp compiler to build this file. 
+2. Configure the project using CMake:
+```
+    cmake -B ./build
+```
+3. Then run build command:
+```
+    cmake --build ./build --config <Debug|Release>
+```
+4. You've done! The builded binary file(s) available in the build directory. 
 
 ## License
 
