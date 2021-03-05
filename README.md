@@ -10,11 +10,11 @@ First of all you must clone this project and then cd to the project folder.
 1. Cd to the "cpp" dir;
 2. Configure the project using CMake:
 ```
-cmake -B ./build -G <preferred generator>
+$ cmake -B ./build -G <preferred generator>
 ```
 3. Then run build command:
 ```
-cmake --build ./build --config <Debug|Release>
+$ cmake --build ./build --config <Debug|Release>
 ```
 4. You've done! The builded binary file(s) available in the build directory.
 
@@ -23,7 +23,7 @@ cmake --build ./build --config <Debug|Release>
 1. Cd to the "python" dir;
 2. Then run:
 ```
-python main.py
+$ python main.py
 ```
 
 ### Dart
@@ -48,11 +48,11 @@ $ bin/hash_trash.exe
 1. Cd to the "rust/hash-trash" dir;
 2. To build:
 ```
-    cargo build --release
+$ cargo build --release
 ```
 3. To run:
 ```
-    cargo run --release
+$ cargo run --release
 ```
 
 ### C#
@@ -60,11 +60,11 @@ $ bin/hash_trash.exe
 1. Cd to the "cs" dir;
 2. Configure the project using CMake:
 ```
-    cmake -B ./build
+$ cmake -B ./build
 ```
 3. Then run build command:
 ```
-    cmake --build ./build --config <Debug|Release>
+$ cmake --build ./build --config <Debug|Release>
 ```
 4. You've done! The builded binary file(s) available in the build directory. 
 
